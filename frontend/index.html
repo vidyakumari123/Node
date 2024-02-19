@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Database Management</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>NODEJS CRUD OPERATIONS </h1>
+        <button onclick="addData()">Add Data</button>
+        <button onclick="deleteData()">Delete Data</button>
+        <button onclick="deleteAllData()">Delete All Data</button>
+        <button onclick="exit()">Exit</button>
+    </div>
+    
+
+
+<script>
+    function addData() {
+        const name = prompt("Enter Name:");
+        const age = prompt("Enter Age:");
+        const address = prompt("Enter Address:");
+        const data = { name, age, address };
+
+        fetch('/addData', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => console.log(result))
+        // .catch(error => console.error('Error:', error));
+    }
+
+    function deleteData() {
+        const id = prompt("Enter ID to delete:");
+        fetch(`/deleteData/${id}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(result => console.log(result))
+        .catch(error => console.error('Error:', error));
+    }
+
+    function deleteAllData() {
+        fetch('/deleteAllData', {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(result => console.log(result))
+        .catch(error => console.error('Error:', error));
+    }
+
+    function exit() {
+       
+    }
+</script>
+</body>
+</html>
